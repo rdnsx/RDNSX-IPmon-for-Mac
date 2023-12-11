@@ -134,7 +134,7 @@ footer_frame.pack(side="bottom", pady=10)
 footer_font = font.Font(size=10)  # Adjust the size as needed
 
 # Footer Label
-footer_label = tk.Label(footer_frame, text="Built with ❤️ by ", font=footer_font)
+footer_label = tk.Label(footer_frame, text="Built with ❤️ by", font=footer_font)
 footer_label.pack(side="left")
 
 # Clickable Link Label
