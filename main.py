@@ -109,7 +109,7 @@ tk.Label(root, text="IP Address:").pack()
 ip_entry = tk.Entry(root, textvariable=ip_address)
 ip_entry.pack()
 
-tk.Label(root, text="URL:").pack()
+tk.Label(root, text="Push URL:").pack()
 url_entry = tk.Entry(root, textvariable=url)
 url_entry.pack()
 
