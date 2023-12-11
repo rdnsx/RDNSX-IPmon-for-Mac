@@ -77,15 +77,6 @@ def stop_monitoring():
     online_time.set("")
     offline_time.set("")
 
-def open_url():
-    webbrowser.open("https://github.com/rdnsx/RDNSX-IPmon-for-Mac")
-
-def on_enter(event):
-    event.widget.config(fg="orange", cursor="hand2")
-
-def on_leave(event):
-    event.widget.config(fg="white")
-
 # GUI Setup
 root = tk.Tk()
 root.title("Uptime Kuma Client")
@@ -134,14 +125,7 @@ footer_frame.pack(side="bottom", pady=10)
 footer_font = font.Font(size=10)  # Adjust the size as needed
 
 # Footer Label
-footer_label = tk.Label(footer_frame, text="Built with ❤️ by", font=footer_font)
+footer_label = tk.Label(footer_frame, text="Built with ❤️ by RDNSX", font=footer_font)
 footer_label.pack(side="left")
-
-# Clickable Link Label
-link_label = tk.Label(footer_frame, text="RDNSX", font=footer_font)
-link_label.pack(side="left")
-link_label.bind("<Button-1>", open_url)
-link_label.bind("<Enter>", on_enter)
-link_label.bind("<Leave>", on_leave)
 
 root.mainloop()
