@@ -8,6 +8,7 @@ import time
 import datetime
 import json
 import socket
+import webbrowser
 
 def get_default_ip():
     try:
@@ -74,6 +75,9 @@ def stop_monitoring():
     online_time.set("")
     offline_time.set("")
 
+def open_url():
+    webbrowser.open("https://github.com/rdnsx/RDNSX-IPmon-for-Mac")
+
 # GUI Setup
 root = tk.Tk()
 root.title("Uptime Kuma Client")
@@ -113,5 +117,15 @@ tk.Label(root, textvariable=online_time).pack()
 
 tk.Label(root, text="Offline Since:").pack()
 tk.Label(root, textvariable=offline_time).pack()
+
+# Footer
+footer_frame = tk.Frame(root)
+footer_frame.pack(side="bottom", fill="x", pady=10)
+
+footer_label = tk.Label(footer_frame, text="Built with ❤️ by ")
+footer_label.pack(side="left")
+
+link_button = tk.Button(footer_frame, text="RDNSX", fg="blue", cursor="hand2", relief="flat", command=open_url)
+link_button.pack(side="left")
 
 root.mainloop()
