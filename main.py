@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import PhotoImage
+from tkinter import font
 import subprocess
 import requests
 import threading
@@ -9,6 +10,7 @@ import datetime
 import json
 import socket
 import webbrowser
+
 
 def get_default_ip():
     try:
@@ -78,6 +80,12 @@ def stop_monitoring():
 def open_url():
     webbrowser.open("https://github.com/rdnsx/RDNSX-IPmon-for-Mac")
 
+def on_enter(event):
+    event.widget.config(fg="orange", cursor="hand2")
+
+def on_leave(event):
+    event.widget.config(fg="white")
+
 # GUI Setup
 root = tk.Tk()
 root.title("Uptime Kuma Client")
@@ -118,14 +126,22 @@ tk.Label(root, textvariable=online_time).pack()
 tk.Label(root, text="Offline Since:").pack()
 tk.Label(root, textvariable=offline_time).pack()
 
-# Footer
+# Footer Frame
 footer_frame = tk.Frame(root)
-footer_frame.pack(side="bottom", fill="x", pady=10)
+footer_frame.pack(side="bottom", pady=10)
 
-footer_label = tk.Label(footer_frame, text="Built with ❤️ by ")
+# Custom smaller font for footer
+footer_font = font.Font(size=10)  # Adjust the size as needed
+
+# Footer Label
+footer_label = tk.Label(footer_frame, text="Built with ❤️ by ", font=footer_font)
 footer_label.pack(side="left")
 
-link_button = tk.Button(footer_frame, text="RDNSX", fg="blue", cursor="hand2", relief="flat", command=open_url)
-link_button.pack(side="left")
+# Clickable Link Label
+link_label = tk.Label(footer_frame, text="RDNSX", font=footer_font)
+link_label.pack(side="left")
+link_label.bind("<Button-1>", open_url)
+link_label.bind("<Enter>", on_enter)
+link_label.bind("<Leave>", on_leave)
 
 root.mainloop()
