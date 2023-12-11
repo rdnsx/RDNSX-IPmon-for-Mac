@@ -9,7 +9,6 @@ import time
 import datetime
 import json
 import socket
-import webbrowser
 
 
 def get_default_ip():
@@ -97,17 +96,17 @@ load_config()
 
 # Input fields
 tk.Label(root, text="IP Address:").pack()
-ip_entry = tk.Entry(root, textvariable=ip_address)
+ip_entry = tk.Entry(root, textvariable=ip_address, justify='center')
 ip_entry.pack()
 
 tk.Label(root, text="Push URL:").pack()
 url_entry = tk.Entry(root, textvariable=url)
 url_entry.pack()
 
-start_button = tk.Button(root, text="Start Monitoring", command=start_monitoring)
+start_button = tk.Button(root, text="Start", command=start_monitoring)
 start_button.pack()
 
-stop_button = tk.Button(root, text="Stop Monitoring", command=stop_monitoring)
+stop_button = tk.Button(root, text="Stop", command=stop_monitoring)
 stop_button.pack()
 
 # Display areas
