@@ -63,8 +63,6 @@ def start_monitoring():
         return
     save_config()
     monitoring = True
-    update_button_color(start_button, "green")
-    update_button_color(stop_button, "systemButtonFace")
     monitor_thread = threading.Thread(target=monitor_ip, daemon=True)
     monitor_thread.start()
 
@@ -93,6 +91,10 @@ online_time = tk.StringVar()
 offline_time = tk.StringVar()
 
 load_config()
+
+# Start monitoring automatically if IP address and URL are set
+if ip_address.get() and url.get():
+    start_monitoring()
 
 # Input fields
 tk.Label(root, text="IP Address:").pack()
