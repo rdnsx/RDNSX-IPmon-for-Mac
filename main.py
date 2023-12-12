@@ -10,7 +10,6 @@ import datetime
 import json
 import socket
 
-
 def get_default_ip():
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -34,10 +33,21 @@ def load_config():
         ip_address.set(get_default_ip())
         url.set("")
 
+def update_image(online):
+    """
+    Update the displayed image based on online status.
+    """
+    new_image = PhotoImage(file="uptimekuma.png" if online else "uptimekumadown.png")
+    logo_label.configure(image=new_image)
+    logo_label.image = new_image
+
 def monitor_ip():
+    global monitoring
     while monitoring:
         response = subprocess.run(["ping", "-c", "1", ip_address.get()], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        if response.returncode == 0:
+        online = response.returncode == 0
+        update_image(online)
+        if online:
             try:
                 requests.get(url.get())
             except requests.RequestException as e:
@@ -49,12 +59,7 @@ def monitor_ip():
         else:
             if not offline_time.get() and online_time.get():
                 offline_time.set(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        time.sleep(30)
-
-def update_button_color(button, color):
-    def change_color():
-        button.config(bg=color)
-    root.after(0, change_color)
+        time.sleep(3)
 
 def start_monitoring():
     global monitoring
@@ -69,8 +74,6 @@ def start_monitoring():
 def stop_monitoring():
     global monitoring
     monitoring = False
-    update_button_color(stop_button, "red")
-    update_button_color(start_button, "systemButtonFace")
     online_time.set("")
     offline_time.set("")
 
@@ -79,7 +82,8 @@ root = tk.Tk()
 root.title("Uptime Kuma Client")
 
 # Load and display the logo
-logo = PhotoImage(file="uptimekuma.png")
+# Initially load the 'offline' image
+logo = PhotoImage(file="uptimekumadown.png")
 logo_label = tk.Label(root, image=logo)
 logo_label.pack(side="top", pady=10)
 
@@ -97,7 +101,7 @@ if ip_address.get() and url.get():
     start_monitoring()
 
 # Input fields
-tk.Label(root, text="IP Address:").pack()
+tk.Label(root, text="IP/Domain:").pack()
 ip_entry = tk.Entry(root, textvariable=ip_address, justify='center')
 ip_entry.pack()
 
@@ -105,17 +109,14 @@ tk.Label(root, text="Push URL:").pack()
 url_entry = tk.Entry(root, textvariable=url)
 url_entry.pack()
 
-start_button = tk.Button(root, text="Start", command=start_monitoring)
+start_button = tk.Button(root, text="Save", command=start_monitoring)
 start_button.pack()
 
-stop_button = tk.Button(root, text="Stop", command=stop_monitoring)
-stop_button.pack()
-
 # Display areas
-tk.Label(root, text="Online Since:").pack()
+tk.Label(root, text="First online:").pack()
 tk.Label(root, textvariable=online_time).pack()
 
-tk.Label(root, text="Offline Since:").pack()
+tk.Label(root, text="Offline since:").pack()
 tk.Label(root, textvariable=offline_time).pack()
 
 # Footer Frame
@@ -123,10 +124,10 @@ footer_frame = tk.Frame(root)
 footer_frame.pack(side="bottom", pady=10)
 
 # Custom smaller font for footer
-footer_font = font.Font(size=10)  # Adjust the size as needed
+footer_font = font.Font(size=8)
 
 # Footer Label
-footer_label = tk.Label(footer_frame, text="Built with ❤️ by RDNSX", font=footer_font)
+footer_label = tk.Label(footer_frame, text="Built with ❤️ by rdnsx", font=footer_font)
 footer_label.pack(side="left")
 
 root.mainloop()
