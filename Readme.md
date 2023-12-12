@@ -1,4 +1,4 @@
-# Uptime Kuma Client README
+# Uptime Kuma Client
 
 ## Description
 
