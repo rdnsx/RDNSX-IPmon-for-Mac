@@ -2,14 +2,15 @@
 
 ## Description
 
-The Uptime Kuma Client is a simple and intuitive GUI application for monitoring the online status of a specified IP address or domain. It also enables pushing notifications to a specified URL when the status changes. This tool is particularly useful for keeping track of server uptime and downtime.
+The Uptime Kuma Client is a simple and intuitive GUI application for monitoring the online status of a specified local or remote IP address or domain and connects to your Uptime Kuma Server using the push monitor type. 
 
 ## Features
 
 - Monitor the online status of a specified IP address or domain.
 - Automatically push notifications to a specified URL upon status change.
 - Display the time of the last status change (online/offline).
-- Save and load configuration settings.
+- Save and remember configuration settings.
+- Starts to monitor automaticly per default with the last saved IP and Push URL.
 
 ## Requirements
 
